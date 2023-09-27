@@ -14,17 +14,20 @@ def Autogram_SHA256SUM():
                     'eight':'8',
                     'nine':'9'}
     
-    alphanumerics = ['zero','one','two','three','four','five','six','seven','eight','nine','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+    hexdecimal = ['zero','one','two','three','four','five','six','seven','eight','nine','a','b','c','d','e','f']
     
     for n in range(7, 8):
         if n == 0:
             continue
 
-        for perm in permutations(alphanumerics, n):
+        for perm in permutations(hexdecimal, n):
             autogram = []
 
             sentence = f"The SHA256 for this sentence begins with: {', '.join(perm[:-1])} and {''.join(perm[-1:])}."
-            sentence_hash = hashlib.sha256(sentence.encode('utf-8')).hexdigest()
+            
+            encoded_sentence = sentence.encode('utf-8')
+            hash_value = hashlib.sha256(encoded_sentence)
+            hexadecimal_hash = hash_value.hexdigest()
 
             for digit in perm:
                 if digit in numbers_dict.keys():
@@ -32,12 +35,12 @@ def Autogram_SHA256SUM():
                 else:
                     autogram.append(digit)
 
-            if (''.join(autogram) == sentence_hash[:len(autogram)]):
+            if (''.join(autogram) == hexadecimal_hash[:len(autogram)]):
                 print(sentence)
-                print(sentence_hash)
+                print(hexadecimal_hash)
 
     '''
-    alphabets = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+    alphabets = ['a','b','c','d','e','f']
     numbers_words = ['zero','one','two','three','four','five','six','seven','eight','nine']
 
     for a1 in alphabets:
@@ -51,11 +54,14 @@ def Autogram_SHA256SUM():
                                 autogram = numbers_dict[n1] + numbers_dict[n2] + numbers_dict[n3] + a1 + numbers_dict[n4] + a2 + numbers_dict[n5]
 
                                 sentence = f"The SHA256 for this sentence begins with: {n1}, {n2}, {n3}, {a1}, {n4}, {a2} and {n5}."
-                                sentence_hash = hashlib.sha256(sentence.encode('utf-8')).hexdigest()
                                 
-                                if (autogram == sentence_hash[:7]):
+                                encoded_sentence = sentence.encode('utf-8')
+                                hash_value = hashlib.sha256(encoded_sentence)
+                                hexadecimal_hash = hash_value.hexdigest()
+                                
+                                if (autogram == hexadecimal_hash[:7]):
                                     print(sentence)
-                                    print(sentence_hash)
+                                    print(hexadecimal_hash)
     '''
 
 if __name__ == '__main__':
