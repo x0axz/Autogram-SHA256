@@ -16,9 +16,9 @@ func main(){
 		"seven":"7",
 		"eight":"8",
 		"nine":"9" }
-
+	
 	alphabets := []string{"a","b","c","d","e","f"}
-    numbers_words := []string{"zero","one","two","three","four","five","six","seven","eight","nine"}
+	numbers_words := []string{"zero","one","two","three","four","five","six","seven","eight","nine"}
 
 	for _, a1 := range alphabets {
 		for _, a2 := range alphabets {
@@ -32,19 +32,24 @@ func main(){
 
 								sentence := fmt.Sprintf("The SHA256 for this sentence begins with: %s, %s, %s, %s, %s, %s and %s.", n1, n2, n3, a1, n4, a2, n5)
 
+								// Convert the input into a byte slice
 								sentence_byte := []byte(sentence)
 
+								// Create a new SHA-256 hash object
 								hasher := sha256.New()
 
+								// Compute the hash
 								hasher.Write(sentence_byte)
 
+								// Calculate the hash of the input sentence and store it as a byte slice
 								hashBytes := hasher.Sum(nil)
 
+								// Get the hexadecimal representation of the hash
 								sentence_hash := fmt.Sprintf("%x", hashBytes)
 
 								if autogram == sentence_hash[:7] {
-                                    fmt.Println(sentence)
-                                    fmt.Println(sentence_hash)
+									fmt.Println(sentence)
+									fmt.Println(sentence_hash)
 								}
 								
 							}
